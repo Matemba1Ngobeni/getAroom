@@ -1,0 +1,7 @@
+{
+  "name": "Get.A.Room",
+  "description": "A beautiful and simplistic web application to browse and rent out rooms, featuring AI-generated welcome messages for a personalized booking experience.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
