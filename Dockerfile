@@ -1,35 +1,26 @@
-# base image
-FROM node:11.6.0 AS build
+# ---------- Stage 1: Build the React app ----------
+FROM node:25.2.0-alpine AS build
 
-# set working directory
 WORKDIR /app
 
-# copy dependency definitions first for better cache usage
 COPY package*.json ./
+RUN npm ci --legacy-peer-deps
 
-# install app dependencies (install dev deps needed to build)
-RUN npm install
-
-# copy app files
 COPY . .
-
-# build app
 RUN npm run build
 
-# Serve the build with 'serve'
-FROM node:11.6.0-alpine
+# ---------- Stage 2: Serve the built app ----------
+FROM node:25.2.0-alpine
 
-# install 'serve' to serve the build folder
-RUN npm install -g serve
+WORKDIR /app
+COPY --from=build /app/build ./build
+COPY --from=build /app/package*.json ./
 
-# set working directory
-WORKDIR /app    
+RUN npm install express
 
-# copy build files from previous stage
-COPY --from=build /app/build ./build    
+COPY server.js .
 
-# expose port
+ENV PORT=8080
 EXPOSE 8080
 
-# run the app with 'serve'
-CMD ["serve", "-s", "build", "-l", "8080"]
+CMD ["node", "server.js"]
