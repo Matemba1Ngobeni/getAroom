@@ -1,0 +1,39 @@
+type User @table {
+  displayName: String!
+  email: String!
+  createdAt: Timestamp!
+  photoUrl: String
+  isLandlord: Boolean
+}
+
+type Room @table {
+  name: String!
+  address: String!
+  pricePerNight: Float!
+  description: String!
+  createdAt: Timestamp!
+  landlord: User
+  amenities: [String]
+  imageUrl: String
+}
+
+type Booking @table {
+  startDate: Date!
+  endDate: Date!
+  status: String!
+  totalPrice: Float!
+  createdAt: Timestamp!
+  tenant: User
+  room: Room
+  paymentMethod: String
+}
+
+type DigitalKey @table {
+  keyIdentifier: String!
+  issuedAt: Timestamp!
+  expiresAt: Timestamp!
+  isActive: Boolean!
+  booking: Booking
+  room: Room
+  accessLog: [Timestamp]
+}

@@ -1,0 +1,39 @@
+mutation CreateSampleUser @auth(level: PUBLIC, insecureReason: "This operation is for demo purposes") {
+  user_insert(data: {
+    id: "550e8400-e29b-41d4-a716-446655440000",
+    displayName: "demouser",
+    email: "demouser@example.com",
+    createdAt: "2024-04-26T12:00:00Z"
+  })
+}
+
+query GetRoomById($id: UUID!) @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  room(id: $id) {
+    id
+    name
+    address
+    pricePerNight
+    description
+  }
+}
+
+mutation CreateBooking($roomId: UUID!, $startDate: Date!, $endDate: Date!, $totalPrice: Float!, $status: String!) @auth(level: USER) {
+  booking_insert(data: {
+    roomId: $roomId,
+    tenantId_expr: "auth.uid",
+    startDate: $startDate,
+    endDate: $endDate,
+    totalPrice: $totalPrice,
+    status: $status,
+    createdAt_expr: "request.time"
+  })
+}
+
+query ListAvailableRooms @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public") {
+  rooms {
+    id
+    name
+    address
+    pricePerNight
+  }
+}

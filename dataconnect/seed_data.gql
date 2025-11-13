@@ -1,0 +1,82 @@
+mutation CreateSeedData @transaction @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public for seeding data.") {
+  user_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      displayName: "demouser1",
+      email: "demouser1@example.com",
+      createdAt: "2024-01-01T00:00:00Z",
+      isLandlord: true,
+      photoUrl: "https://example.com/demouser1.jpg"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      displayName: "demouser2",
+      email: "demouser2@example.com",
+      createdAt: "2024-01-01T00:00:00Z",
+      isLandlord: false,
+      photoUrl: "https://example.com/demouser2.jpg"
+    }
+  ])
+  room_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440002",
+      landlordId: "550e8400-e29b-41d4-a716-446655440000",
+      name: "Room 1",
+      description: "Example room 1",
+      address: "123 Main St",
+      createdAt: "2024-01-02T00:00:00Z",
+      pricePerNight: 50.00
+    },
+    {
+      id: "750e8400-e29b-41d4-a716-446655440003",
+      landlordId: "550e8400-e29b-41d4-a716-446655440001",
+      name: "Room 2",
+      description: "Example room 2",
+      address: "456 Elm St",
+      createdAt: "2024-01-03T00:00:00Z",
+      pricePerNight: 75.00
+    }
+  ])
+  booking_insertMany(data: [
+    {
+      id: "850e8400-e29b-41d4-a716-446655440004",
+      roomId: "650e8400-e29b-41d4-a716-446655440002",
+      tenantId: "550e8400-e29b-41d4-a716-446655440001",
+      startDate: "2024-02-01",
+      endDate: "2024-02-05",
+      createdAt: "2024-01-04T00:00:00Z",
+      totalPrice: 200.00,
+      status: "confirmed"
+    },
+    {
+      id: "950e8400-e29b-41d4-a716-446655440005",
+      roomId: "750e8400-e29b-41d4-a716-446655440003",
+      tenantId: "550e8400-e29b-41d4-a716-446655440000",
+      startDate: "2024-03-01",
+      endDate: "2024-03-05",
+      createdAt: "2024-01-05T00:00:00Z",
+      totalPrice: 300.00,
+      status: "pending"
+    }
+  ])
+  digitalKey_insertMany(data: [
+    {
+      id: "a50e8400-e29b-41d4-a716-446655440006",
+      bookingId: "850e8400-e29b-41d4-a716-446655440004",
+      roomId: "650e8400-e29b-41d4-a716-446655440002",
+      keyIdentifier: "key123",
+      issuedAt: "2024-02-01T00:00:00Z",
+      expiresAt: "2024-02-05T00:00:00Z",
+      isActive: true
+    },
+    {
+      id: "b50e8400-e29b-41d4-a716-446655440007",
+      bookingId: "950e8400-e29b-41d4-a716-446655440005",
+      roomId: "750e8400-e29b-41d4-a716-446655440003",
+      keyIdentifier: "key456",
+      issuedAt: "2024-03-01T00:00:00Z",
+      expiresAt: "2024-03-05T00:00:00Z",
+      isActive: true
+    }
+  ])
+}
