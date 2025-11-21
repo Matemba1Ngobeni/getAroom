@@ -9,7 +9,7 @@ const firebaseConfig = {
   authDomain: "gen-lang-client-0682381335.firebaseapp.com",
   projectId: "gen-lang-client-0682381335",
   storageBucket: "gen-lang-client-0682381335.firebasestorage.app",
-  messagingSenderId:" Y2253628174827",
+  messagingSenderId:"253628174827",
   appId: "1:253628174827:web:1994d783f912fc1c4bc9ae"
 };
 
