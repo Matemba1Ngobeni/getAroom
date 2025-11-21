@@ -1,6 +1,7 @@
 {
   "projects": {
-    "getaroom": "gen-lang-client-0682381335"
+    "getaroom": "gen-lang-client-0682381335",
+    "default": "gen-lang-client-0682381335"
   },
   "targets": {},
   "etags": {}
